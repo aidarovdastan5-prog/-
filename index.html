@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JewelryShop - Ювелирный интернет-магазин</title>
+    <!-- Подключаем внешний файл со стилями -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Подключаем шрифты Google Fonts для красивого отображения текста -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ================================================================
+         ШАПКА САЙТА (HEADER)
+         Содержит: логотип, навигационное меню, иконки поиска/корзины/входа
+         ================================================================ -->
+    <header class="header">
+        <div class="container">
+            <div class="header__inner">
+                
+                <!-- Логотип: ссылка на главную страницу -->
+                <a href="/" class="logo">
+                    <span class="logo__main">MOONLIGHT</span>
+                    <span class="logo__accent">Shop</span>
+                </a>
+                
+                <!-- Навигационное меню -->
+                <nav class="nav">
+                    <ul class="nav__list">
+                        <li><a href="" class="nav__link nav__link--active">Главная</a></li>
+                        <li><a href="catalog.html" class="nav__link">Каталог</a></li>
+                        <li><a href="collections.html" class="nav__link">Коллекции</a></li>
+                        <li><a href="about.html" class="nav__link">О нас</a></li>
+                        <li><a href="contacts.html" class="nav__link">Контакты</a></li>
+                    </ul>
+                </nav>
+                
+                <!-- Блок иконок действий -->
+                <div class="header__actions">
+                    <!-- Иконка поиска: открывает панель поиска -->
+                    <button class="header__search" id="searchToggle" aria-label="Поиск">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke-width="2"/>
+                        </svg>
+                    </button>
+                    
+                    <!-- Иконка корзины: открывает модальное окно корзины -->
+                    <button class="header__cart" id="cartToggle" aria-label="Корзина">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19Z" stroke-width="2"/>
+                            <path d="M10 4V1" stroke-width="2"/>
+                            <path d="M14 4V1" stroke-width="2"/>
+                            <path d="M3 7H21" stroke-width="2"/>
+                        </svg>
+                        <span class="header__cart-count" id="cartCount">0</span>
+                    </button>
+                    
+                    <!-- Иконка пользователя: открывает модальное окно входа/регистрации -->
+                    <button class="header__user" id="userToggle" aria-label="Войти">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="12" cy="8" r="4" stroke-width="2"/>
+                            <path d="M5 20V19C5 15.1 8.1 12 12 12C15.9 12 19 15.1 19 19V20" stroke-width="2"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ================================================================
+             ВЫПАДАЮЩАЯ ПАНЕЛЬ ПОИСКА
+             Появляется при клике на иконку лупы, скрыта по умолчанию
+             ================================================================ -->
+        <div class="search-panel" id="searchPanel">
+            <div class="container">
+                <form class="search-form" id="searchForm">
+                    <input type="text" class="search-form__input" id="searchInput" placeholder="Поиск украшений...">
+                    <button type="submit" class="search-form__submit">Найти</button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- ================================================================
+             ГЛАВНЫЙ БАННЕР (HERO)
+             Привлекает внимание посетителя, содержит призыв к действию
+             ================================================================ -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero__content">
+                    <h1 class="hero__title">Воплощение <span>роскоши</span></h1>
+                    <p class="hero__subtitle">Эксклюзивные украшения ручной работы</p>
+                    <a href="catalog.html" class="btn btn--primary">Смотреть коллекцию</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================================================================
+             БЛОК КАТЕГОРИЙ
+             Отображает 4 категории товаров с картинками
+             Данные загружаются из БД через script.js
+             ================================================================ -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section__title">Категории украшений</h2>
+                <div class="categories-grid" id="categoriesGrid"></div>
+                <!-- Сюда JavaScript вставит карточки категорий -->
+            </div>
+        </section>
+
+        <!-- ================================================================
+             БЛОК ПОПУЛЯРНЫХ ТОВАРОВ
+             Отображает список товаров из базы данных
+             Данные загружаются из БД через script.js
+             ================================================================ -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section__title">Популярные украшения</h2>
+                <div class="products-grid" id="productsGrid"></div>
+                <!-- Сюда JavaScript вставит карточки товаров -->
+            </div>
+        </section>
+    </main>
+
+    <!-- ================================================================
+         ФУТЕР (ПОДВАЛ)
+         Содержит контактную информацию и ссылки
+         ================================================================ -->
+    <div class="footer__grid">
+        <div class="footer__col">
+            <h3 class="footer__title">Moonlight</h3>
+            <p class="footer__text">Ювелирный магазин премиум-класса. Только лучшие украшения от ведущих мастеров.</p>
+        </div>
+        
+        <div class="footer__col">
+            <h3 class="footer__title">Каталог</h3>
+            <ul class="footer__list">
+                <li><a href="catalog.html">Кольца</a></li>
+                <li><a href="catalog.html">Серьги</a></li>
+                <li><a href="catalog.html">Подвески</a></li>
+                <li><a href="catalog.html">Браслеты</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer__col">
+            <h3 class="footer__title">Информация</h3>
+            <ul class="footer__list">
+                <li><a href="about.html">О нас</a></li>
+                <li><a href="#">Доставка</a></li>
+                <li><a href="#">Гарантия</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer__col">
+            <h3 class="footer__title">Контакты</h3>
+            <ul class="footer__list">
+                <li>📞 +7 (999) 123-45-67</li>
+                <li>✉️ info@jewelryshop.ru</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer__bottom">
+        <p>&copy; 2024 JewelryShop. Все права защищены.</p>
+    </div>
+
+    <!-- ================================================================
+         МОДАЛЬНОЕ ОКНО КОРЗИНЫ
+         Всплывает при клике на иконку корзины
+         ================================================================ -->
+    <div class="modal" id="cartModal">
+        <div class="modal__overlay"></div>
+        <div class="modal__content">
+            <div class="modal__header">
+                <h2 class="modal__title">Корзина</h2>
+                <button class="modal__close" id="closeCart">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItems"></div>
+            <div class="cart-total">
+                <span>Итого:</span>
+                <span class="cart-total__price" id="cartTotalPrice">0 ₽</span>
+            </div>
+            <button class="btn btn--primary btn--full" id="checkoutBtn">Оформить заказ</button>
+        </div>
+    </div>
+
+    <!-- ================================================================
+         МОДАЛЬНОЕ ОКНО АВТОРИЗАЦИИ (ВХОД И РЕГИСТРАЦИЯ)
+         Всплывает при клике на иконку пользователя
+         Содержит две формы, переключаемые ссылкой
+         ================================================================ -->
+    <div class="modal" id="authModal">
+        <div class="modal__overlay"></div>
+        <div class="modal__content modal__content--sm">
+            <div class="modal__header">
+                <div class="modal__icon">✨</div>
+                <h2 class="modal__title" id="authModalTitle">Добро пожаловать</h2>
+                <button class="modal__close" id="closeAuth">&times;</button>
+            </div>
+            
+            <!-- ФОРМА ВХОДА -->
+            <form class="auth-form" id="loginForm">
+                <div class="form-group">
+                    <label class="form-label">
+                        <span class="label-icon">📧</span> Email
+                    </label>
+                    <input type="email" class="form-input" id="loginEmail" placeholder="your@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <span class="label-icon">🔒</span> Пароль
+                    </label>
+                    <input type="password" class="form-input" id="loginPassword" placeholder="••••••" required>
+                </div>
+                
+                <button type="submit" class="btn btn--primary btn--full">
+                    <span>Войти</span>
+                    <span class="btn-icon">→</span>
+                </button>
+                
+                <p class="auth-form__switch">
+                    Нет аккаунта? <a href="#" id="showRegisterBtn">Создать аккаунт</a>
+                </p>
+            </form>
+            
+            <!-- ФОРМА РЕГИСТРАЦИИ (скрыта по умолчанию) -->
+            <form class="auth-form" id="registerForm" style="display: none;">
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label class="form-label">
+                            <span class="label-icon">👤</span> Имя
+                        </label>
+                        <input type="text" class="form-input" id="regFirstName" placeholder="Иван" required>
+                    </div>
+                    <div class="form-group half">
+                        <label class="form-label">
+                            <span class="label-icon">👤</span> Фамилия
+                        </label>
+                        <input type="text" class="form-input" id="regLastName" placeholder="Петров" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <span class="label-icon">📧</span> Email
+                    </label>
+                    <input type="email" class="form-input" id="regEmail" placeholder="your@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <span class="label-icon">🔒</span> Пароль
+                    </label>
+                    <input type="password" class="form-input" id="regPassword" placeholder="минимум 6 символов" required>
+                </div>
+                
+                <button type="submit" class="btn btn--primary btn--full">
+                    <span>Создать аккаунт</span>
+                    <span class="btn-icon">✨</span>
+                </button>
+                
+                <p class="auth-form__switch">
+                    Уже есть аккаунт? <a href="#" id="showLoginBtn">Войти</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Подключаем основной JavaScript-файл -->
+    <script src="script.js"></script>
+</body>
+</html>

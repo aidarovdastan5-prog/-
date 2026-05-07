@@ -1,0 +1,1035 @@
+/* ================================================================
+   ФАЙЛ: style.css
+   НАЗНАЧЕНИЕ: Оформление сайта ювелирного магазина "Moonlight"
+   АВТОР: Айдаров Д.
+   ГРУППА: 118
+   ================================================================ */
+
+/* ================================================================
+   БЛОК 1. ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ (CSS Custom Properties)
+   ================================================================
+   Что это: Переменные, которые можно переиспользовать во всём файле.
+   Зачем: Чтобы менять цвета/шрифты в одном месте, а не искать по всему коду.
+   Как работают: Вызываются через var(--имя-переменной)
+   ================================================================ */
+:root {
+    /* ----- ЦВЕТОВАЯ СХЕМА ----- */
+    --color-primary: #f0f0f0;          /* Светло-серый (акценты, кнопки) */
+    --color-primary-dark: #c09d2b;      /* Белый (кнопки при наведении) */
+    --color-bg: #faf8f5;               /* Тёплый бежевый (фон страницы) */
+    --color-text: #000000;             /* Чёрный (основной текст) */
+    --color-text-light: #666;          /* Серый (второстепенный текст) */
+    --color-border: #e0e0e0;           /* Светло-серый (границы) */
+    --color-white: #ffffff;            /* Белый */
+    --color-black: #dd2222;            /* Тёмно-красный (фон шапки и футера) */
+    
+    /* ----- ШРИФТЫ ----- */
+    --font-main: 'Montserrat', sans-serif;      /* Современный гротеск (основной) */
+    --font-display: 'Playfair Display', serif;  /* Антиква с засечками (заголовки) */
+    
+    /* ----- ТЕНИ (для объёма) ----- */
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);    /* Лёгкая тень */
+    --shadow-md: 0 4px 15px rgba(0,0,0,0.1);    /* Средняя тень */
+    --shadow-lg: 0 8px 30px rgba(0,0,0,0.15);   /* Сильная тень */
+    
+    /* ----- ПЛАВНОСТЬ ПЕРЕХОДОВ ----- */
+    --transition: all 0.3s ease;        /* Все изменения за 0.3 секунды */
+}
+
+/* Ссылки в футере — рука вместо стрелки */
+.footer__list a {
+    cursor: pointer;
+}
+
+/* ================================================================
+   БЛОК 2. СБРОС СТАНДАРТНЫХ СТИЛЕЙ БРАУЗЕРА
+   ================================================================
+   Зачем: Браузеры добавляют отступы по-разному. Обнуляем все.
+   Результат: Сайт выглядит одинаково в Chrome, Firefox, Edge.
+   ================================================================ */
+* {
+    margin: 0;           /* Убираем внешние отступы */
+    padding: 0;          /* Убираем внутренние отступы */
+    box-sizing: border-box;  /* Ширина элемента включает padding и border */
+}
+
+/* Тело страницы */
+body {
+    font-family: var(--font-main);
+    background: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;    /* Межстрочный интервал 1.6 от размера шрифта */
+}
+
+/* Центрирующий контейнер */
+.container {
+    max-width: 1400px;   /* Контент не растягивается бесконечно */
+    margin: 0 auto;      /* Автоматические отступы слева и справа = центрирование */
+    padding: 0 40px;     /* Внутренние отступы, чтобы контент не прилипал к краям */
+}
+
+/* ================================================================
+   БЛОК 3. ШАПКА САЙТА (HEADER)
+   ================================================================
+   Что делает: Прилипает к верху при скролле.
+   Зачем: Меню и иконки всегда видны.
+   ================================================================ */
+.header {
+    background: var(--color-black);  /* Тёмно-красный фон */
+    color: var(--color-white);
+    position: sticky;     /* Прилипание */
+    top: 0;               /* К верхнему краю */
+    z-index: 100;         /* Выше других элементов (100 — большое число) */
+}
+
+/* Внутренний контейнер шапки: лого слева, иконки справа */
+.header__inner {
+    display: flex;
+    justify-content: space-between;  /* Лого слева, иконки справа */
+    align-items: center;             /* Вертикальное выравнивание по центру */
+    height: 80px;
+}
+
+/* ================================================================
+   БЛОК 4. ЛОГОТИП
+   ================================================================ */
+.logo {
+    font-family: var(--font-display);  /* Антиквенный шрифт для премиальности */
+    font-size: 28px;
+    font-weight: 700;
+    text-decoration: none;             /* Убираем подчёркивание у ссылки */
+}
+
+.logo__main {
+    color: var(--color-white);
+}
+
+.logo__accent {
+    color: var(--color-primary);       /* Акцентная часть "Shop" светлая */
+    margin-left: 4px;
+}
+
+/* ================================================================
+   БЛОК 5. НАВИГАЦИОННОЕ МЕНЮ
+   ================================================================ */
+.nav__list {
+    display: flex;
+    gap: 40px;            /* Расстояние между пунктами меню */
+    list-style: none;     /* Убираем маркеры списка */
+}
+
+.nav__link {
+    color: var(--color-white);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.5px;   /* Межбуквенный интервал для читаемости */
+    transition: var(--transition);
+}
+
+/* Подсветка при наведении и на активной странице */
+.nav__link:hover,
+.nav__link--active {
+    color: var(--color-primary);
+}
+
+/* ================================================================
+   БЛОК 6. ИКОНКИ ДЕЙСТВИЙ (ПОИСК, КОРЗИНА, ВХОД)
+   ================================================================
+   Что это: Кнопки, открывающие модальные окна.
+   ================================================================ */
+.header__actions {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.header__search,
+.header__cart,
+.header__user {
+    background: none;
+    border: none;
+    color: var(--color-white);
+    cursor: pointer;
+    position: relative;    /* Для позиционирования счётчика */
+    transition: var(--transition);
+}
+
+.header__search:hover,
+.header__cart:hover,
+.header__user:hover {
+    color: var(--color-primary);
+    transform: scale(1.1);  /* Увеличение на 10% */
+}
+
+/* Счётчик товаров на иконке корзины */
+.header__cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: var(--color-primary);
+    color: var(--color-black);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 50%;      /* Круглая форма */
+}
+
+/* ================================================================
+   БЛОК 7. ПАНЕЛЬ ПОИСКА
+   ================================================================
+   Как работает: Скрыта (display: none), появляется при клике на лупу.
+   ================================================================ */
+.search-panel {
+    background: var(--color-white);
+    padding: 20px 0;
+    display: none;
+}
+
+.search-panel--active {
+    display: block;          /* Показываем при добавлении класса */
+}
+
+.search-form {
+    display: flex;
+    gap: 10px;
+}
+
+.search-form__input {
+    flex: 1;                /* Растягивается на всю доступную ширину */
+    padding: 12px 20px;
+    border: 2px solid var(--color-border);
+    border-radius: 50px;    /* Сильно скруглённые края */
+    font-family: var(--font-main);
+}
+
+.search-form__input:focus {
+    outline: none;          /* Убираем стандартную обводку браузера */
+    border-color: var(--color-primary);
+}
+
+.search-form__submit {
+    padding: 12px 30px;
+    background: var(--color-primary);
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.search-form__submit:hover {
+    background: var(--color-primary-dark);
+    color: var(--color-white);
+}
+
+/* ================================================================
+   БЛОК 8. ГЛАВНЫЙ БАННЕР (HERO)
+   ================================================================
+   Как работает: Затемнённое фоновое изображение, текст поверх.
+   ================================================================ */
+.hero {
+    /* linear-gradient = затемнение, чтобы текст читался */
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                url('https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=1887&auto=format');
+    background-size: cover;        /* Картинка покрывает всю область */
+    background-position: center;    /* Центрируем */
+    min-height: 600px;              /* Минимальная высота */
+    display: flex;
+    align-items: center;            /* Контент по центру по вертикали */
+    color: var(--color-white);
+}
+
+.hero__content {
+    max-width: 600px;      /* Ограничиваем, чтобы текст не растягивался */
+}
+
+.hero__title {
+    font-family: var(--font-display);
+    font-size: 64px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.hero__title span {
+    color: var(--color-primary);    /* "роскоши" выделен цветом */
+}
+
+.hero__subtitle {
+    font-size: 18px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin-bottom: 30px;
+}
+
+/* ================================================================
+   БЛОК 9. ЗАГОЛОВКИ СЕКЦИЙ
+   ================================================================ */
+.section {
+    padding: 80px 0;      /* Отступы сверху и снизу */
+}
+
+.section__title {
+    font-family: var(--font-display);
+    font-size: 36px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 50px;
+    position: relative;    /* Для псевдоэлемента */
+}
+
+/* Декоративная полоска под заголовком */
+.section__title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    background: var(--color-primary);
+    margin: 15px auto 0;   /* auto = центрирование */
+}
+
+/* ================================================================
+   БЛОК 10. КНОПКИ
+   ================================================================ */
+.btn {
+    display: inline-block;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+/* Основная кнопка (светлая) */
+.btn--primary {
+    background: var(--color-primary);
+    color: var(--color-black);
+}
+
+.btn--primary:hover {
+    background: var(--color-primary-dark);
+    color: var(--color-white);
+}
+
+/* Кнопка на всю ширину (для модальных окон) */
+.btn--full {
+    width: 100%;
+}
+
+/* ================================================================
+   БЛОК 11. СЕТКА КАТЕГОРИЙ (ГЛАВНАЯ СТРАНИЦА)
+   ================================================================
+   Как работает: Адаптивная сетка, сама подстраивает колонки.
+   ================================================================ */
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    /* auto-fit: создаёт столько колонок, сколько влезает */
+    /* minmax(250px, 1fr): минимум 250px, остальное равномерно */
+    gap: 30px;
+}
+
+/* Карточка категории */
+.category-card {
+    position: relative;
+    height: 300px;
+    border-radius: 15px;
+    overflow: hidden;      /* Чтобы картинка не вылезала за края */
+    cursor: pointer;       /* Рука при наведении */
+}
+
+.category-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;     /* Картинка заполняет блок без искажений */
+    transition: var(--transition);
+}
+
+/* Увеличение картинки при наведении */
+.category-card:hover .category-card__image {
+    transform: scale(1.1);
+}
+
+/* Затемнённая подложка для текста */
+.category-card__overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    /* Градиент: снизу чёрный, сверху прозрачный */
+    padding: 30px 20px 20px;
+    color: var(--color-white);
+}
+
+.category-card__name {
+    font-family: var(--font-display);
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.category-card__count {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* ================================================================
+   БЛОК 12. СЕТКА ТОВАРОВ
+   ================================================================ */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    /* auto-fill: заполняет ряд, создавая новые колонки */
+    gap: 30px;
+}
+
+.product-card {
+    background: var(--color-white);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.product-card:hover {
+    transform: translateY(-5px);      /* Приподнимается */
+    box-shadow: var(--shadow-lg);
+}
+
+/* Контейнер картинки товара */
+.product-card__image-container {
+    position: relative;
+    height: 300px;
+    overflow: hidden;
+}
+
+.product-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+/* Увеличение картинки при наведении на карточку */
+.product-card:hover .product-card__image {
+    transform: scale(1.1);
+}
+
+/* Бейдж (Хит, Новинка, Премиум) */
+.product-card__badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--color-primary);
+    color: var(--color-black);
+    padding: 5px 15px;
+    border-radius: 25px;
+    font-size: 12px;
+    font-weight: 600;
+    z-index: 10;          /* Чтобы был поверх картинки */
+}
+
+/* Индикатор остатка на складе */
+.product-card__stock {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: var(--color-black);
+    color: var(--color-white);
+    padding: 5px 10px;
+    border-radius: 25px;
+    font-size: 12px;
+    z-index: 10;
+}
+
+/* Если товара нет в наличии — серый фон */
+.product-card__stock--out {
+    background: #999;
+}
+
+/* Информационная часть карточки */
+.product-card__info {
+    padding: 20px;
+}
+
+.product-card__category {
+    font-size: 12px;
+    color: var(--color-text-light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+.product-card__title {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.product-card__price {
+    font-size: 20px;
+    font-weight: 600;
+    color: rgb(255, 145, 0);  /* Оранжевая цена — привлекает внимание */
+    margin-bottom: 15px;
+}
+
+/* Кнопка "В корзину" */
+.product-card__btn {
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    border: 2px solid var(--color-primary-dark);
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.product-card__btn:hover:not(:disabled) {
+    background: var(--color-primary-dark);
+    color: var(--color-white);
+}
+
+/* Неактивная кнопка (товар закончился) */
+.product-card__btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #f0f0f0;
+    border-color: #ccc;
+    color: #999;
+}
+
+/* Сообщения, когда нет товаров */
+.no-products,
+.no-data,
+.cart-empty {
+    text-align: center;
+    padding: 40px;
+    color: var(--color-text-light);
+    font-size: 16px;
+    grid-column: 1 / -1;        /* Растягиваем на всю сетку */
+    background: var(--color-white);
+    border-radius: 15px;
+    box-shadow: var(--shadow-sm);
+}
+
+/* ================================================================
+   БЛОК 13. ФУТЕР (ПОДВАЛ)
+   ================================================================ */
+.footer {
+    background: var(--color-black);
+    color: var(--color-white);
+    padding: 60px 0 20px;
+    margin-top: 60px;       /* Отступ от основного контента */
+}
+
+.footer__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer__title {
+    font-family: var(--font-display);
+    font-size: 18px;
+    color: var(--color-primary);
+    margin-bottom: 20px;
+}
+
+.footer__text {
+    color: #999;
+}
+
+.footer__list {
+    list-style: none;
+}
+
+.footer__list li {
+    margin-bottom: 10px;
+}
+
+.footer__list a {
+    color: #999;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.footer__list a:hover {
+    color: var(--color-primary);
+}
+
+.footer__bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+    color: #999;
+}
+
+/* ================================================================
+   БЛОК 14. МОДАЛЬНЫЕ ОКНА (ОБЩИЕ СТИЛИ)
+   ================================================================
+   Как работают: Скрыты (display: none), появляются с классом modal--active.
+   ================================================================ */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;          /* Выше всего на странице */
+}
+
+.modal--active {
+    display: block;
+}
+
+/* Полупрозрачный фон (оверлей) */
+.modal__overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);  /* 50% прозрачности */
+}
+
+/* Содержимое модалки (выезжает справа) */
+.modal__content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 400px;
+    height: 100%;
+    background: var(--color-white);
+    padding: 30px;
+    overflow-y: auto;       /* Скролл, если много товаров */
+    animation: slideIn 0.3s;
+    box-shadow: var(--shadow-lg);
+}
+
+/* Маленькая модалка (авторизация) — по центру */
+.modal__content--sm {
+    width: 400px;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    transform: translate(-50%, -50%);  /* Центрирование */
+    border-radius: 15px;
+}
+
+/* Шапка модалки */
+.modal__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.modal__title {
+    font-family: var(--font-display);
+    font-size: 24px;
+}
+
+.modal__close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+    transition: var(--transition);
+}
+
+.modal__close:hover {
+    color: var(--color-text);
+    transform: rotate(90deg);   /* Поворачиваем крестик */
+}
+
+/* ================================================================
+   БЛОК 15. КОРЗИНА (ЭЛЕМЕНТЫ ВНУТРИ МОДАЛКИ)
+   ================================================================ */
+.cart-item {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.cart-item__image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.cart-item__info {
+    flex: 1;               /* Занимает всё свободное место */
+}
+
+.cart-item__title {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.cart-item__price {
+    color: var(--color-primary);
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+/* Управление количеством + / - */
+.cart-item__quantity {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quantity-btn {
+    width: 25px;
+    height: 25px;
+    border: 1px solid var(--color-border);
+    background: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.quantity-btn:hover {
+    background: var(--color-primary);
+    color: var(--color-white);
+    border-color: var(--color-primary);
+}
+
+/* Кнопка удалить */
+.cart-item__remove {
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 0 5px;
+    transition: var(--transition);
+}
+
+.cart-item__remove:hover {
+    color: #f8bb11;
+    transform: scale(1.1);
+}
+
+/* Итог корзины */
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    padding-top: 20px;
+    border-top: 2px solid var(--color-border);
+    font-size: 18px;
+}
+
+.cart-total__price {
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+/* ================================================================
+   БЛОК 16. ФОРМЫ (АВТОРИЗАЦИЯ, РЕГИСТРАЦИЯ)
+   ================================================================ */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 5px;
+    font-family: var(--font-main);
+    font-size: 14px;
+    transition: var(--transition);
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(212, 55, 55, 0.1);
+}
+
+.auth-form__switch {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.auth-form__switch a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+/* ================================================================
+   БЛОК 17. ЗАГРУЗЧИК (LOADER)
+   ================================================================
+   Появляется при загрузке данных с сервера.
+   ================================================================ */
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.9);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.loader__spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid var(--color-border);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* ================================================================
+   БЛОК 18. ВСПЛЫВАЮЩИЕ УВЕДОМЛЕНИЯ
+   ================================================================ */
+.notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px 25px;
+    border-radius: 50px;
+    font-weight: 600;
+    z-index: 2000;
+    animation: slideUp 0.3s;
+    box-shadow: var(--shadow-md);
+}
+
+.notification--success {
+    background: var(--color-primary);
+    color: var(--color-black);
+}
+
+.notification--error {
+    background: #000000;
+    color: white;
+}
+
+/* ================================================================
+   БЛОК 19. АНИМАЦИИ
+   ================================================================ */
+
+/* Вращение загрузчика */
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Выезд корзины справа */
+@keyframes slideIn {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
+/* Всплытие уведомления снизу */
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ================================================================
+   БЛОК 20. УЛУЧШЕННАЯ МОДАЛКА АВТОРИЗАЦИИ
+   ================================================================ */
+.modal__content--sm {
+    width: 450px;
+    max-width: 90%;
+    border-radius: 24px;
+    background: linear-gradient(135deg, #fff 0%, #faf8f5 100%);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+}
+
+.modal__header {
+    position: relative;
+    text-align: center;
+    flex-direction: column;
+    border-bottom: none;
+    padding-bottom: 10px;
+}
+
+.modal__icon {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.modal__title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #000;
+    margin: 0;
+}
+
+.modal__close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 28px;
+    color: #999;
+    transition: all 0.3s;
+}
+
+/* Иконки в полях форм */
+.form-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.label-icon {
+    font-size: 14px;
+}
+
+.form-input {
+    padding: 14px 16px;
+    border-radius: 12px;
+}
+
+/* Две колонки (Имя и Фамилия в одной строке) */
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+
+.form-group.half {
+    flex: 1;
+}
+
+/* Кнопка с анимацией */
+.btn--full {
+    padding: 14px;
+    background: #000;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn--full:hover {
+    background: #b49450;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(180, 148, 80, 0.3);
+}
+
+.btn-icon {
+    font-size: 18px;
+    transition: transform 0.3s;
+}
+
+.btn--full:hover .btn-icon {
+    transform: translateX(5px);
+}
+
+/* Ссылки переключения */
+.auth-form__switch {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 14px;
+    color: #666;
+}
+
+.auth-form__switch a {
+    color: #b49450;
+    font-weight: 600;
+}
+
+.auth-form__switch a:hover {
+    text-decoration: underline;
+}
+
+/* Анимация появления модалки */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -40%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.modal--active .modal__content--sm {
+    animation: fadeInUp 0.4s ease;
+}
+
+/* ================================================================
+   БЛОК 21. АДАПТИВНЫЙ ДИЗАЙН (МОБИЛЬНЫЕ УСТРОЙСТВА)
+   ================================================================ */
+
+/* Для планшетов и телефонов (ширина до 768px) */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+    }
+    
+    .header__inner {
+        height: 60px;
+    }
+    
+    /* Меню скрываем (можно будет добавить бургер-меню) */
+    .nav__list {
+        display: none;
+    }
+    
+    .hero__title {
+        font-size: 36px;
+    }
+    
+    .section {
+        padding: 40px 0;
+    }
+    
+    .modal__content {
+        width: 100%;
+    }
+}
+
+/* Для маленьких телефонов (ширина до 480px) */
+@media (max-width: 480px) {
+    .modal__content--sm {
+        width: 90%;
+        padding: 20px;
+    }
+    
+    .cart-item {
+        flex-wrap: wrap;
+    }
+    
+    .cart-item__image {
+        width: 100%;
+        height: 150px;
+    }
+}

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог - Moonlight Jewelry</title>
+    <!-- Подключаем файл со стилями -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Подключаем шрифты Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- ================================================================
+         ЛОКАЛЬНЫЕ СТИЛИ ДЛЯ СТРАНИЦЫ КАТАЛОГА
+         (не влияют на другие страницы)
+         ================================================================ -->
+    <style>
+        /* Фон и оформление герой-блока */
+        .catalog-hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 80px 0;
+            text-align: center;
+            color: white;
+        }
+        
+        .catalog-hero__title {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .catalog-hero__subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        
+        .catalog-section {
+            padding: 60px 0;
+        }
+        
+        /* ===== БЛОК ФИЛЬТРАЦИИ ===== */
+        .filters {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .filters__title {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .filters__grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: flex-end;
+        }
+        
+        .filter-group {
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        .filter-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            color: #666;
+        }
+        
+        .filter-select {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .filter-select:focus {
+            outline: none;
+            border-color: #b49450;
+        }
+        
+        .filter-reset {
+            padding: 10px 25px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .filter-reset:hover {
+            background: #b49450;
+            color: white;
+        }
+        
+        /* ===== СЕТКА ТОВАРОВ ===== */
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        /* Карточка товара */
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .product-card__image-container {
+            position: relative;
+            height: 280px;
+            overflow: hidden;
+        }
+        
+        .product-card__image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .product-card:hover .product-card__image {
+            transform: scale(1.1);
+        }
+        
+        /* Бейдж (Хит, Новинка, Премиум) */
+        .product-card__badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #b49450;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 25px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        /* Индикатор остатка на складе */
+        .product-card__stock {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #000;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 25px;
+            font-size: 11px;
+        }
+        
+        .product-card__stock--out {
+            background: #999;  /* Серый — нет в наличии */
+        }
+        
+        .product-card__info {
+            padding: 20px;
+        }
+        
+        .product-card__category {
+            font-size: 11px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        
+        .product-card__title {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        /* Кнопка "В корзину" */
+        .product-card__btn {
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            border: 2px solid #b49450;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .product-card__btn:hover:not(:disabled) {
+            background: #b49450;
+            color: white;
+        }
+        
+        .product-card__btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-color: #ccc;
+            color: #999;
+        }
+        
+        /* Сообщение, если товары не найдены */
+        .no-products {
+            text-align: center;
+            padding: 60px;
+            color: #666;
+            font-size: 18px;
+            grid-column: 1 / -1;
+        }
+        
+        /* Адаптив для телефонов */
+        @media (max-width: 768px) {
+            .catalog-hero__title {
+                font-size: 32px;
+            }
+            .filters__grid {
+                flex-direction: column;
+            }
+            .filter-group {
+                width: 100%;
+            }
+            .filter-reset {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ================================================================
+         ШАПКА САЙТА (HEADER)
+         ================================================================ -->
+    <header class="header">
+        <div class="container">
+            <div class="header__inner">
+                <a href="index.html" class="logo">
+                    <span class="logo__main">MOONLIGHT</span>
+                    <span class="logo__accent">Shop</span>
+                </a>
+                
+                <!-- Навигационное меню -->
+                <nav class="nav">
+                    <ul class="nav__list">
+                        <li><a href="index.html" class="nav__link">Главная</a></li>
+                        <li><a href="catalog.html" class="nav__link nav__link--active">Каталог</a></li>
+                        <li><a href="collections.html" class="nav__link">Коллекции</a></li>
+                        <li><a href="about.html" class="nav__link">О нас</a></li>
+                        <li><a href="contacts.html" class="nav__link">Контакты</a></li>
+                    </ul>
+                </nav>
+                
+                <!-- Иконки действий -->
+                <div class="header__actions">
+                    <button class="header__search" id="searchToggle" aria-label="Поиск">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke-width="2"/>
+                        </svg>
+                    </button>
+                    <button class="header__cart" id="cartToggle" aria-label="Корзина">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19Z" stroke-width="2"/>
+                            <path d="M10 4V1" stroke-width="2"/>
+                            <path d="M14 4V1" stroke-width="2"/>
+                            <path d="M3 7H21" stroke-width="2"/>
+                        </svg>
+                        <span class="header__cart-count" id="cartCount">0</span>
+                    </button>
+                    <button class="header__user" id="userToggle" aria-label="Войти">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="12" cy="8" r="4" stroke-width="2"/>
+                            <path d="M5 20V19C5 15.1 8.1 12 12 12C15.9 12 19 15.1 19 19V20" stroke-width="2"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Панель поиска (появляется при клике на лупу) -->
+        <div class="search-panel" id="searchPanel">
+            <div class="container">
+                <form class="search-form" id="searchForm">
+                    <input type="text" class="search-form__input" id="searchInput" placeholder="Поиск украшений...">
+                    <button type="submit" class="search-form__submit">Найти</button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- ================================================================
+             ГЕРОЙ-БЛОК КАТАЛОГА
+             ================================================================ -->
+        <section class="catalog-hero">
+            <div class="container">
+                <h1 class="catalog-hero__title">Каталог украшений</h1>
+                <p class="catalog-hero__subtitle">Изысканные изделия ручной работы для самых важных моментов</p>
+            </div>
+        </section>
+
+        <!-- ================================================================
+             ОСНОВНАЯ СЕКЦИЯ: ФИЛЬТР + ТОВАРЫ
+             ================================================================ -->
+        <section class="catalog-section">
+            <div class="container">
+                
+                <!-- БЛОК ФИЛЬТРАЦИИ -->
+                <div class="filters">
+                    <h3 class="filters__title">Фильтр по категориям</h3>
+                    <div class="filters__grid">
+                        <div class="filter-group">
+                            <label>Категория</label>
+                            <select class="filter-select" id="categoryFilter">
+                                <option value="all">Все категории</option>
+                                <option value="Кольца">Кольца</option>
+                                <option value="Серьги">Серьги</option>
+                                <option value="Подвески">Подвески</option>
+                                <option value="Браслеты">Браслеты</option>
+                            </select>
+                        </div>
+                        <button class="filter-reset" id="resetFilter">Сбросить фильтр</button>
+                    </div>
+                </div>
+
+                <!-- СЕТКА ТОВАРОВ (заполняется JavaScript) -->
+                <div class="catalog-grid" id="catalogGrid"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ================================================================
+         ФУТЕР (ПОДВАЛ)
+         ================================================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__col">
+                    <h3 class="footer__title">Moonlight</h3>
+                    <p class="footer__text">Ювелирный магазин премиум-класса. Только лучшие украшения от ведущих мастеров.</p>
+                </div>
+                <div class="footer__col">
+                    <h3 class="footer__title">Каталог</h3>
+                    <ul class="footer__list">
+                        <li><a href="catalog.html">Кольца</a></li>
+                        <li><a href="catalog.html">Серьги</a></li>
+                        <li><a href="catalog.html">Подвески</a></li>
+                        <li><a href="catalog.html">Браслеты</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h3 class="footer__title">Информация</h3>
+                    <ul class="footer__list">
+                        <li><a href="about.html">О нас</a></li>
+                        <li><a href="#">Доставка</a></li>
+                        <li><a href="#">Оплата</a></li>
+                        <li><a href="#">Гарантия</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h3 class="footer__title">Контакты</h3>
+                    <ul class="footer__list">
+                        <li>📞 +7 (999) 123-45-67</li>
+                        <li>✉️ info@jewelryshop.ru</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p>&copy; 2024 Moonlight Jewelry. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ================================================================
+         МОДАЛЬНОЕ ОКНО КОРЗИНЫ
+         ================================================================ -->
+    <div class="modal" id="cartModal">
+        <div class="modal__overlay"></div>
+        <div class="modal__content">
+            <div class="modal__header">
+                <h2 class="modal__title">Корзина</h2>
+                <button class="modal__close" id="closeCart">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItems"></div>
+            <div class="cart-total">
+                <span>Итого:</span>
+                <span class="cart-total__price" id="cartTotalPrice">0</span>
+            </div>
+            <button class="btn btn--primary btn--full" id="checkoutBtn">Оформить заказ</button>
+        </div>
+    </div>
+
+    <!-- ================================================================
+         МОДАЛЬНОЕ ОКНО АВТОРИЗАЦИИ
+         ================================================================ -->
+    <div class="modal" id="authModal">
+        <div class="modal__overlay"></div>
+        <div class="modal__content modal__content--sm">
+            <div class="modal__header">
+                <h2 class="modal__title">Вход</h2>
+                <button class="modal__close" id="closeAuth">&times;</button>
+            </div>
+            <form class="auth-form" id="authForm">
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Пароль</label>
+                    <input type="password" class="form-input" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn btn--primary btn--full">Войти</button>
+                <p class="auth-form__switch">Нет аккаунта? <a href="#" id="showRegister">Зарегистрироваться</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Подключаем основной файл JavaScript -->
+    <script src="script.js"></script>
+    
+    <!-- ================================================================
+         ЛОКАЛЬНЫЙ JAVASCRIPT ДЛЯ СТРАНИЦЫ КАТАЛОГА
+         Загружает товары из API, рендерит их, обрабатывает фильтрацию
+         ================================================================ -->
+    <script>
+        // Функция загрузки товаров из API
+        async function loadCatalogProducts() {
+            try {
+                const response = await fetch('http://localhost/jewelryshop/api/products.php');
+                const products = await response.json();
+                return products;
+            } catch (error) {
+                console.error('Ошибка загрузки товаров:', error);
+                return [];
+            }
+        }
+
+        // Функция отображения товаров на странице
+        async function renderCatalog(products) {
+            const grid = document.getElementById('catalogGrid');
+            if (!grid) return;
+
+            if (!products || !products.length) {
+                grid.innerHTML = '<div class="no-products">Товары не найдены</div>';
+                return;
+            }
+
+            // Формируем HTML для каждой карточки товара
+            grid.innerHTML = products.map(product => `
+                <div class="product-card" data-id="${product.id}">
+                    <div class="product-card__image-container">
+                        <img src="${product.image || 'https://via.placeholder.com/300x300?text=' + product.name}" 
+                             alt="${product.name}" 
+                             class="product-card__image" 
+                             loading="lazy">
+                        ${product.badge ? `<span class="product-card__badge">${product.badge}</span>` : ''}
+                        ${product.stock < 5 && product.stock > 0 ? `<span class="product-card__stock">Осталось ${product.stock}</span>` : ''}
+                        ${product.stock === 0 ? `<span class="product-card__stock product-card__stock--out">Нет в наличии</span>` : ''}
+                    </div>
+                    <div class="product-card__info">
+                        <p class="product-card__category">${product.category || 'Украшение'}</p>
+                        <h3 class="product-card__title">${product.name}</h3>
+                        <button class="product-card__btn" 
+                                onclick="window.addToCartFromCatalog(${product.id})" 
+                                ${product.stock === 0 ? 'disabled' : ''}>
+                            ${product.stock === 0 ? 'Нет в наличии' : 'В корзину'}
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Фильтрация товаров по выбранной категории
+        async function filterCatalog() {
+            const category = document.getElementById('categoryFilter').value;
+            const allProducts = await loadCatalogProducts();
+            
+            if (category === 'all') {
+                renderCatalog(allProducts);
+            } else {
+                const filtered = allProducts.filter(p => p.category === category);
+                renderCatalog(filtered);
+            }
+        }
+
+        // Добавление товара в корзину (глобальная функция для вызова из onclick)
+        window.addToCartFromCatalog = function(productId) {
+            loadCatalogProducts().then(products => {
+                const product = products.find(p => p.id === productId);
+                if (!product) return;
+                
+                if (product.stock === 0) {
+                    alert('Товара нет в наличии');
+                    return;
+                }
+                
+                if (window.app && window.app.cart) {
+                    window.app.cart.add(product);
+                    if (window.app.ui) {
+                        window.app.ui.showNotification('Товар добавлен в корзину');
+                    }
+                    if (window.app.renderCart) {
+                        window.app.renderCart();
+                    }
+                } else {
+                    alert('Товар добавлен в корзину');
+                }
+            });
+        };
+
+        // Инициализация страницы при загрузке
+        document.addEventListener('DOMContentLoaded', async () => {
+            const products = await loadCatalogProducts();
+            renderCatalog(products);
+            
+            // Обработчики фильтрации
+            const categoryFilter = document.getElementById('categoryFilter');
+            const resetFilter = document.getElementById('resetFilter');
+            
+            if (categoryFilter) {
+                categoryFilter.addEventListener('change', filterCatalog);
+            }
+            
+            if (resetFilter) {
+                resetFilter.addEventListener('click', async () => {
+                    if (categoryFilter) categoryFilter.value = 'all';
+                    const allProducts = await loadCatalogProducts();
+                    renderCatalog(allProducts);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

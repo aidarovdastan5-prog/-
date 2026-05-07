@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О нас - Moonlight Jewelry</title>
+    <!-- Подключаем основные стили -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Подключаем шрифты Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- ================================================================
+         ЛОКАЛЬНЫЕ СТИЛИ ТОЛЬКО ДЛЯ СТРАНИЦЫ "О НАС"
+         ================================================================ -->
+    <style>
+        /* Герой-блок с фоновым изображением и затемнением */
+        .about-hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 120px 0;
+            text-align: center;
+            color: white;
+        }
+        
+        .about-hero__title {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .about-hero__subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        
+        /* Основная секция с текстом и картинкой */
+        .about-section {
+            padding: 80px 0;
+        }
+        
+        /* Сетка: текст слева, картинка справа */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .about-content__title {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #000;
+        }
+        
+        .about-content__text {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
+        /* Блок с изображением */
+        .about-image {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Сетка ценностей (3 карточки в ряд) */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .value-card {
+            text-align: center;
+            padding: 30px;
+            background: #faf8f5;
+            border-radius: 15px;
+            transition: transform 0.3s;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .value-card__icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+        
+        .value-card__title {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .value-card__text {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        /* Сетка преимуществ (2 карточки в ряд) */
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .advantage-card {
+            display: flex;
+            gap: 20px;
+            padding: 25px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .advantage-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .advantage-card__icon {
+            font-size: 40px;
+            flex-shrink: 0;
+        }
+        
+        .advantage-card__content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .advantage-card__content p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        /* Адаптив для телефонов */
+        @media (max-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .values-grid,
+            .advantages-grid {
+                grid-template-columns: 1fr;
+            }
+            .about-hero__title {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ================================================================
+         ШАПКА САЙТА (HEADER)
+         ================================================================ -->
+    <header class="header">
+        <div class="container">
+            <div class="header__inner">
+                <a href="index.html" class="logo">
+                    <span class="logo__main">MOONLIGHT</span>
+                    <span class="logo__accent">Shop</span>
+                </a>
+                
+                <!-- Навигационное меню -->
+                <nav class="nav">
+                    <ul class="nav__list">
+                        <li><a href="index.html" class="nav__link">Главная</a></li>
+                        <li><a href="catalog.html" class="nav__link">Каталог</a></li>
+                        <li><a href="collections.html" class="nav__link">Коллекции</a></li>
+                        <li><a href="about.html" class="nav__link nav__link--active">О нас</a></li>
+                        <li><a href="contacts.html" class="nav__link">Контакты</a></li>
+                    </ul>
+                </nav>
+                
+                <!-- Иконки действий -->
+                <div class="header__actions">
+                    <button class="header__search" id="searchToggle" aria-label="Поиск">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke-width="2"/>
+                        </svg>
+                    </button>
+                    <button class="header__cart" id="cartToggle" aria-label="Корзина">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19Z" stroke-width="2"/>
+                            <path d="M10 4V1" stroke-width="2"/>
+                            <path d="M14 4V1" stroke-width="2"/>
+                            <path d="M3 7H21" stroke-width="2"/>
+                        </svg>
+                        <span class="header__cart-count" id="cartCount">0</span>
+                    </button>
+                    <button class="header__user" id="userToggle" aria-label="Войти">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="12" cy="8" r="4" stroke-width="2"/>
+                            <path d="M5 20V19C5 15.1 8.1 12 12 12C15.9 12 19 15.1 19 19V20" stroke-width="2"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Панель поиска -->
+        <div class="search-panel" id="searchPanel">
+            <div class="container">
+                <form class="search-form" id="searchForm">
+                    <input type="text" class="search-form__input" id="searchInput" placeholder="Поиск украшений...">
+                    <button type="submit" class="search-form__submit">Найти</button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- ================================================================
+             ГЕРОЙ-БЛОК СТРАНИЦЫ "О НАС"
+             ================================================================ -->
+        <section class="about-hero">
+            <div class="container">
+                <h1 class="about-hero__title">История нашего бренда</h1>
+                <p class="about-hero__subtitle">Создаем украшения с душой с 2010 года</p>
+            </div>
+        </section>
+
+        <!-- ================================================================
+             БЛОК "О НАС" (ИСТОРИЯ КОМПАНИИ)
+             ================================================================ -->
+        <section class="about-section">
+            <div class="container">
+                <div class="about-grid">
+                    <!-- Текстовая часть -->
+                    <div class="about-content">
+                        <h2 class="about-content__title">Moonlight</h2>
+                        <p class="about-content__text">
+                            Moonlight — это ювелирный дом, где традиции высокого мастерства встречаются с современным дизайном. 
+                            Мы создаем украшения, которые становятся семейными реликвиями и передаются из поколения в поколение.
+                        </p>
+                        <p class="about-content__text">
+                            Наша миссия — дарить людям красоту и радость через уникальные ювелирные изделия. 
+                            Каждое украшение проходит строгий контроль качества и создается с любовью к деталям.
+                        </p>
+                        <p class="about-content__text">
+                            Мы используем только драгоценные металлы высшей пробы и натуральные камни, 
+                            работая напрямую с проверенными поставщиками со всего мира.
+                        </p>
+                    </div>
+                    <!-- Изображение (фотография ювелирной мастерской) -->
+                    <div class="about-image">
+                        <img src="moolight.jpg" alt="Ювелирная мастерская">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================================================================
+             БЛОК "НАШИ ЦЕННОСТИ" (3 КАРТОЧКИ)
+             ================================================================ -->
+        <section class="about-section" style="background: #faf8f5;">
+            <div class="container">
+                <h2 class="section__title">Наши ценности</h2>
+                <div class="values-grid">
+                    <!-- Ценность 1: Качество -->
+                    <div class="value-card">
+                        <div class="value-card__icon">💎</div>
+                        <h3 class="value-card__title">Качество</h3>
+                        <p class="value-card__text">Используем только лучшие материалы и драгоценные камни высшего качества</p>
+                    </div>
+                    <!-- Ценность 2: Ручная работа -->
+                    <div class="value-card">
+                        <div class="value-card__icon">✋</div>
+                        <h3 class="value-card__title">Ручная работа</h3>
+                        <p class="value-card__text">Каждое украшение создается вручную опытными мастерами-ювелирами</p>
+                    </div>
+                    <!-- Ценность 3: Уникальный дизайн -->
+                    <div class="value-card">
+                        <div class="value-card__icon">🎨</div>
+                        <h3 class="value-card__title">Уникальный дизайн</h3>
+                        <p class="value-card__text">Эксклюзивные модели, которые вы не найдете больше нигде</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================================================================
+             БЛОК "ПОЧЕМУ ВЫБИРАЮТ НАС" (6 КАРТОЧЕК ПРЕИМУЩЕСТВ)
+             ================================================================ -->
+        <section class="about-section">
+            <div class="container">
+                <h2 class="section__title">Почему выбирают нас</h2>
+                <div class="advantages-grid">
+                    <!-- Преимущество 1 -->
+                    <div class="advantage-card">
+                        <div class="advantage-card__icon">🔒</div>
+                        <div class="advantage-card__content">
+                            <h3>Гарантия подлинности</h3>
+                            <p>Все изделия имеют сертификаты качества и проходят независимую экспертизу</p>
+                        </div>
+                    </div>
+                    <!-- Преимущество 2 -->
+                    <div class="advantage-card">
+                        <div class="advantage-card__icon">🚚</div>
+                        <div class="advantage-card__content">
+                            <h3>Бесплатная доставка</h3>
+                            <p>Доставляем заказы по всему миру бесплатно при заказе от 50 000 ₽</p>
+                        </div>
+                    </div>
+                    <!-- Преимущество 3 -->
+                    <div class="advantage-card">
+                        <div class="advantage-card__icon">💳</div>
+                        <div class="advantage-card__content">
+                            <h3>Удобная оплата</h3>
+                            <p>Оплачивайте заказ любым удобным способом: картой, онлайн, при получении</p>
+                        </div>
+                    </div>
+                    <!-- Преимущество 4 -->
+                    <div class="advantage-card">
+                        <div class="advantage-card__icon">🔄</div>
+                        <div class="advantage-card__content">
+                            <h3>Обмен и возврат</h3>
+                            <p>Возврат или обмен товара в течение 30 дней без лишних вопросов</p>
+                        </div>
+                    </div>
+                    <!-- Преимущество 5 -->
+                    <div class="advantage-card">
+                        <div class="advantage-card__icon">🎁</div>
+                        <div class="advantage-card__content">
+                            <h3>Подарочная упаковка</h3>
+                            <p>Каждое украшение упаковано в элегантную подарочную коробку</p>
+                        </div>
+                    </div>
+                    <!-- Преимущество 6 -->
+                    <div class="advantage-card">
+                        <div class="advantage-card__icon">👨‍💼</div>
+                        <div class="advantage-card__content">
+                            <h3>Индивидуальный подход</h3>
+                            <p>Поможем подобрать идеальное украшение под ваш бюджет и предпочтения</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ================================================================
+         ФУТЕР (ПОДВАЛ)
+         ================================================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__col">
+                    <h3 class="footer__title">Moonlight</h3>
+                    <p class="footer__text">Ювелирный магазин премиум-класса. Только лучшие украшения от ведущих мастеров.</p>
+                </div>
+                <div class="footer__col">
+                    <h3 class="footer__title">Каталог</h3>
+                    <ul class="footer__list">
+                        <li><a href="catalog.html">Кольца</a></li>
+                        <li><a href="catalog.html">Серьги</a></li>
+                        <li><a href="catalog.html">Подвески</a></li>
+                        <li><a href="catalog.html">Браслеты</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h3 class="footer__title">Информация</h3>
+                    <ul class="footer__list">
+                        <li><a href="about.html">О нас</a></li>
+                        <li><a href="#">Доставка</a></li>
+                        <li><a href="#">Гарантия</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h3 class="footer__title">Контакты</h3>
+                    <ul class="footer__list">
+                        <li>📞 +7 (999) 000-00-01</li>
+                        <li>✉️ info@Moonlightshop.ru</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p>&copy; 2024 Moonlight Jewelry. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Подключаем основной JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>

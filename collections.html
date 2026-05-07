@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Коллекции - Moonlight Jewelry</title>
+    <!-- Подключаем основные стили -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Подключаем шрифты Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- ================================================================
+         ЛОКАЛЬНЫЕ СТИЛИ ТОЛЬКО ДЛЯ СТРАНИЦЫ "КОЛЛЕКЦИИ"
+         ================================================================ -->
+    <style>
+        /* Герой-блок с фоновым изображением */
+        .collections-hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 120px 0;
+            text-align: center;
+            color: white;
+        }
+        
+        .collections-hero__title {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .collections-hero__subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        
+        /* Основная секция с коллекциями */
+        .collections-section {
+            padding: 80px 0;
+        }
+        
+        /* Карточка коллекции: изображение слева, текст справа */
+        .collection-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 80px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .collection-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Карточка с перевёрнутым порядком (изображение справа) */
+        .collection-card--reverse .collection-card__image {
+            order: 2;
+        }
+        
+        .collection-card--reverse .collection-card__info {
+            order: 1;
+        }
+        
+        /* Изображение коллекции */
+        .collection-card__image {
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .collection-card__image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .collection-card:hover .collection-card__image img {
+            transform: scale(1.05);
+        }
+        
+        /* Текстовая часть карточки */
+        .collection-card__info {
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .collection-card__badge {
+            display: inline-block;
+            padding: 5px 15px;
+            background: #b49450;
+            color: white;
+            font-size: 12px;
+            border-radius: 25px;
+            margin-bottom: 20px;
+            width: fit-content;
+        }
+        
+        .collection-card__title {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #000;
+        }
+        
+        .collection-card__desc {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+        
+        /* Список особенностей коллекции со звёздочками */
+        .collection-card__features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .collection-card__features li {
+            margin-bottom: 10px;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .collection-card__features li::before {
+            content: "✨";
+        }
+        
+        /* Кнопка перехода в каталог */
+        .collection-card__btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #000;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: fit-content;
+        }
+        
+        .collection-card__btn:hover {
+            background: #b49450;
+            transform: translateX(5px);
+        }
+        
+        /* Адаптив для телефонов */
+        @media (max-width: 768px) {
+            .collections-hero__title {
+                font-size: 32px;
+            }
+            .collection-card {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            .collection-card__info {
+                padding: 30px;
+            }
+            .collection-card__title {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ================================================================
+         ШАПКА САЙТА (HEADER)
+         ================================================================ -->
+    <header class="header">
+        <div class="container">
+            <div class="header__inner">
+                <a href="index.html" class="logo">
+                    <span class="logo__main">MOONLIGHT</span>
+                    <span class="logo__accent">Shop</span>
+                </a>
+                
+                <nav class="nav">
+                    <ul class="nav__list">
+                        <li><a href="index.html" class="nav__link">Главная</a></li>
+                        <li><a href="catalog.html" class="nav__link">Каталог</a></li>
+                        <li><a href="collections.html" class="nav__link nav__link--active">Коллекции</a></li>
+                        <li><a href="about.html" class="nav__link">О нас</a></li>
+                        <li><a href="contacts.html" class="nav__link">Контакты</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="header__actions">
+                    <button class="header__search" id="searchToggle" aria-label="Поиск">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke-width="2"/>
+                        </svg>
+                    </button>
+                    <button class="header__cart" id="cartToggle" aria-label="Корзина">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19Z" stroke-width="2"/>
+                            <path d="M10 4V1" stroke-width="2"/>
+                            <path d="M14 4V1" stroke-width="2"/>
+                            <path d="M3 7H21" stroke-width="2"/>
+                        </svg>
+                        <span class="header__cart-count" id="cartCount">0</span>
+                    </button>
+                    <button class="header__user" id="userToggle" aria-label="Войти">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="12" cy="8" r="4" stroke-width="2"/>
+                            <path d="M5 20V19C5 15.1 8.1 12 12 12C15.9 12 19 15.1 19 19V20" stroke-width="2"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Панель поиска -->
+        <div class="search-panel" id="searchPanel">
+            <div class="container">
+                <form class="search-form" id="searchForm">
+                    <input type="text" class="search-form__input" id="searchInput" placeholder="Поиск украшений...">
+                    <button type="submit" class="search-form__submit">Найти</button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Герой-блок -->
+        <section class="collections-hero">
+            <div class="container">
+                <h1 class="collections-hero__title">Наши коллекции</h1>
+                <p class="collections-hero__subtitle">Эксклюзивные серии украшений, созданные с любовью и вдохновением</p>
+            </div>
+        </section>
+
+        <!-- ================================================================
+             БЛОК С КОЛЛЕКЦИЯМИ (4 КАРТОЧКИ)
+             ================================================================ -->
+        <section class="collections-section">
+            <div class="container">
+                
+                <!-- КОЛЛЕКЦИЯ 1: Lumière (изображение слева) -->
+                <div class="collection-card">
+                    <div class="collection-card__image">
+                        <img src="https://ir.ozone.ru/s3/multimedia-o/w1200/6608333040.jpg" alt="Lumière">
+                    </div>
+                    <div class="collection-card__info">
+                        <span class="collection-card__badge">Лимитированная серия</span>
+                        <h2 class="collection-card__title">Lumière</h2>
+                        <p class="collection-card__desc">Коллекция, вдохновленная светом и изяществом. Нежные линии, сияние бриллиантов и утонченность форм. Идеальный выбор для особых моментов.</p>
+                        <ul class="collection-card__features">
+                            <li>Бриллианты высшей чистоты</li>
+                            <li>Белое золото 585 пробы</li>
+                            <li>Ручная огранка каждого камня</li>
+                        </ul>
+                        <a href="catalog.html" class="collection-card__btn">Смотреть коллекцию</a>
+                    </div>
+                </div>
+
+                <!-- КОЛЛЕКЦИЯ 2: Noir Élégance (изображение справа, класс reverse) -->
+                <div class="collection-card collection-card--reverse">
+                    <div class="collection-card__image">
+                        <img src="https://img-edg.joomcdn.net/af8c1442ef2ae886676a508fe486d8a649181108_original.jpeg" alt="Noir">
+                    </div>
+                    <div class="collection-card__info">
+                        <span class="collection-card__badge">Премиум</span>
+                        <h2 class="collection-card__title">Noir Élégance</h2>
+                        <p class="collection-card__desc">Смелая и элегантная коллекция для уверенных в себе. Черное золото в сочетании с редкими камнями создает неповторимый образ.</p>
+                        <ul class="collection-card__features">
+                            <li>Черное золото 750 пробы</li>
+                            <li>Оникс и черные бриллианты</li>
+                            <li>Эксклюзивный дизайн</li>
+                        </ul>
+                        <a href="catalog.html" class="collection-card__btn">Смотреть коллекцию</a>
+                    </div>
+                </div>
+
+                <!-- КОЛЛЕКЦИЯ 3: Rêve de Fleur (изображение слева) -->
+                <div class="collection-card">
+                    <div class="collection-card__image">
+                        <img src="https://ir.ozone.ru/s3/multimedia-9/6694287345.jpg" alt="Rêve">
+                    </div>
+                    <div class="collection-card__info">
+                        <span class="collection-card__badge">Новинка</span>
+                        <h2 class="collection-card__title">Rêve de Fleur</h2>
+                        <p class="collection-card__desc">Цветочная коллекция, где природа встречается с ювелирным искусством. Нежные бутоны, лепестки и изящные линии в драгоценном исполнении.</p>
+                        <ul class="collection-card__features">
+                            <li>Розовое золото</li>
+                            <li>Сапфиры и рубины</li>
+                            <li>Цветочный мотив в дизайне</li>
+                        </ul>
+                        <a href="catalog.html" class="collection-card__btn">Смотреть коллекцию</a>
+                    </div>
+                </div>
+
+                <!-- КОЛЛЕКЦИЯ 4: Héritage (изображение справа) -->
+                <div class="collection-card collection-card--reverse">
+                    <div class="collection-card__image">
+                        <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Héritage">
+                    </div>
+                    <div class="collection-card__info">
+                        <span class="collection-card__badge">Классика</span>
+                        <h2 class="collection-card__title">Héritage</h2>
+                        <p class="collection-card__desc">Винтажная коллекция, вдохновленная элегантностью прошлых эпох. Украшения, которые становятся семейными реликвиями.</p>
+                        <ul class="collection-card__features">
+                            <li>Желтое золото</li>
+                            <li>Старинная огранка</li>
+                            <li>Винтажный дизайн</li>
+                        </ul>
+                        <a href="catalog.html" class="collection-card__btn">Смотреть коллекцию</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ================================================================
+         ФУТЕР (ПОДВАЛ)
+         ================================================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__col">
+                    <h3 class="footer__title">Moonlight</h3>
+                    <p class="footer__text">Ювелирный магазин премиум-класса. Только лучшие украшения от ведущих мастеров.</p>
+                </div>
+                <div class="footer__col">
+                    <h3 class="footer__title">Каталог</h3>
+                    <ul class="footer__list">
+                        <li><a href="catalog.html">Кольца</a></li>
+                        <li><a href="catalog.html">Серьги</a></li>
+                        <li><a href="catalog.html">Подвески</a></li>
+                        <li><a href="catalog.html">Браслеты</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h3 class="footer__title">Информация</h3>
+                    <ul class="footer__list">
+                        <li><a href="about.html">О нас</a></li>
+                        <li><a href="#">Доставка</a></li>
+                        <li><a href="#">Оплата</a></li>
+                        <li><a href="#">Гарантия</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h3 class="footer__title">Контакты</h3>
+                    <ul class="footer__list">
+                        <li>📞 +7 (999) 123-45-67</li>
+                        <li>✉️ info@jewelryshop.ru</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p>&copy; 2024 Moonlight Jewelry. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Подключаем основной JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
